@@ -1,47 +1,45 @@
-# Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+# Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+# The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+# You must write an algorithm that runs in O(n) time and without using the division operation.
 
  
 
 # Example 1:
 
-# Input: nums = [1,1,1,2,2,3], k = 2
-# Output: [1,2]
+# Input: nums = [1,2,3,4]
+# Output: [24,12,8,6]
 # Example 2:
 
-# Input: nums = [1], k = 1
-# Output: [1]
+# Input: nums = [-1,1,0,-3,3]
+# Output: [0,0,9,0,0]
  
 
 # Constraints:
 
-# 1 <= nums.length <= 105
-# -104 <= nums[i] <= 104
-# k is in the range [1, the number of unique elements in the array].
-# It is guaranteed that the answer is unique.
-
-
+# 2 <= nums.length <= 105
+# -30 <= nums[i] <= 30
+# The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
         
-        count = {}
-        #This creates an empty list for each "bucket" for ex: [][][][][][][] if nums is 6 
-        freq = [[] for i in range(len(nums) + 1)]
-
-        #uses the number puts in place of n if the number is not there it'll put it to 1 if so it'll increase it by 1
-        for n in nums: 
-            count[n] = 1 + count.get(n, 0)
-        #iterates through the indexs and values where n is the number and c is the count of that number 
-        for n, c in count.items(): 
-        #This appends the number to the apprioate freq COUNT index that we made above 
-            freq[c].append(n)
-
-        res = []
-        #this is where we return the result
-        #it starts at top index then decrements by one 
-        #It will find the highest count of each number and add it to the res list
-        #it'll do this until the length of res  list is equal to k 
-        for i in range(len(freq) - 1, 0, -1):
-            for n in freq[i]:
-                res.append(n) 
-                if len(res) == k:
-                    return res
+        #This is create the number of indexs needed for our output(same as length as input list) all indexs being 1's
+        res = [1] * (len(nums))
+        
+        #Default the prefix to 1 so that if there is not prefix it stays the same
+        prefix = 1
+        #This gives a list of all the numbers before the value 
+        #iterates through all of nums before final index 
+        for i in range (len(nums)):
+            #sets res list to prefix products which we use later 
+            res[i] = prefix 
+            prefix *= nums[i]
+        #Default the postfix to 1 so that if there is not postfix it stays the same
+        postfix = 1
+        #Start at index one less than the length of list then stop when it greater than or equal to -1 and decrement by 1
+        for i in range(len(nums) -1, -1, -1):
+            #then we are going to do the same process backwards and once the loop is done we have our final answer
+            res[i] *= postfix
+            postfix *= nums[i]
+        return res
