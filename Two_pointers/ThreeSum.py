@@ -43,5 +43,9 @@ class Solution:
                     l +=1 
                 else: 
                     res.append([a, nums[l], nums[r]])
+                    l += 1
+                    while nums[l] == nums[l-1] and l < r:
+                        l += 1
+        return res
 
                     
