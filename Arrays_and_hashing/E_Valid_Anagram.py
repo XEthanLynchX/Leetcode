@@ -30,7 +30,7 @@ class Solution:
         countS = {}
         countT = {}
 
-      #iterate through each string and store the count of each letter in the dictionary
+      #iterate through each count in the string and the get the count add to it if nothing is present make it start at
         for i in range(len(s)):
             countS[s[i]] = 1 + countS.get(s[i], 0)
             countT[t[i]] = 1 + countT.get(t[i], 0)
