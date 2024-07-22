@@ -47,7 +47,11 @@ class Solution:
                 return [prevMap[difference], i]
             # If the 'difference' is not found in 
             #'prevMap', store the current element 'n' and its index 'i' in 'prevMap'.
-             # This way, we keep track of elements we have seen so far.
+            # This way, we keep track of elements we have seen so far.
             prevMap[n] = i
         # If the loop completes without finding a valid pair, return None.
         # This means that no two elements in the 'nums' list add up to the 'target'.
+
+        #basically we scan the whole array starting from index 0 the check the dif between the target and current number 
+        #when the difference and current number are added we get our target
+        #if the difference has already been stored in the array we return both the current number and the difference
