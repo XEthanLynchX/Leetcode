@@ -27,19 +27,16 @@
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-      
-        res = defaultdict(list) #mapping the count of each char to the list of Anagrams 
-                            # default dict(list) makes it default a list in case the value doesn't exist yet
-
-        for i in strs:
-            count = [0] * 26 #26 0's we add count of char to one of the zeros from a - z if found
-
-            for c in i:
-                count[ord(c) - ord("a")] # current number subtracted by 'a' maps it to the correct index above 
-                                         # visual rep - a = 80 b = 81 in 'unicode' b = 81 - 'a' == 80 which will map to index '1'
-                                         # += 1 increment it by 1
-                                         
-            res[tuple(count)].append(i) #list can not be keys in python so we make it tuple because it's immuatable (can't be changed)
-
+        res = defaultdict(list)
+        #loop through and create a "count" for every letter
+        for s in strs:
+            count = [0] * 26
+         
+            #loop through the above count subtract the current value by "a" and then increment by 1
+            for c in s:
+                count[ord(c) - ord("a")] += 1 
+              
+        #append 'tuple' count to the char list
+            res[tuple(count)].append(s)
+        #return Values
         return res.values()
-        
